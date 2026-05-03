@@ -1,0 +1,45 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: grama-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: gramavoice
+    volumes:
+      - grama_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: grama-backend
+    environment:
+      GRAMAVOICE_DB_URL: jdbc:mysql://mysql:3306/gramavoice?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Kolkata
+      GRAMAVOICE_DB_USERNAME: root
+      GRAMAVOICE_DB_PASSWORD: root
+      SERVER_PORT: 8080
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: grama-frontend
+    environment:
+      VITE_PROXY_TARGET: http://backend:8080
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"
+
+volumes:
+  grama_mysql_data:

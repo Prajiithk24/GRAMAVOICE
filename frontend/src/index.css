@@ -1,0 +1,524 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap');
+
+:root {
+  font-family: 'Hind Madurai', 'Noto Sans Tamil', sans-serif;
+  color: #16312a;
+  background:
+    radial-gradient(circle at top right, rgba(232, 161, 49, 0.22), transparent 30%),
+    radial-gradient(circle at top left, rgba(15, 118, 110, 0.14), transparent 34%),
+    linear-gradient(180deg, #f8f5ed 0%, #eef4ef 52%, #f9fbf7 100%);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.அமைப்பு {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  min-height: 100vh;
+}
+
+.பக்கப்பட்டி {
+  padding: 28px 20px 24px;
+  background: rgba(248, 252, 248, 0.88);
+  border-right: 1px solid rgba(22, 49, 42, 0.08);
+  backdrop-filter: blur(14px);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: auto;
+}
+
+.முத்திரை {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.முத்திரை_சின்னம் {
+  width: 52px;
+  aspect-ratio: 1;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fefdf8;
+  background: linear-gradient(135deg, #0f766e, #d97706);
+}
+
+.முத்திரை h1,
+.மேல்பட்டி h2,
+.வீரம் h3,
+.அட்டை h3 {
+  margin: 0;
+  font-family: 'Noto Sans Tamil', 'Hind Madurai', sans-serif;
+}
+
+.முத்திரை p,
+.மேல்பட்டி_மென்மை,
+.அட்டை_மேல் p,
+.வீரம்_விளக்கம்,
+.எண்_அட்டை span,
+.தற்போது span,
+.இணைப்பு span,
+.அட்டை span,
+.காலவரிசை span {
+  color: #53756c;
+}
+
+.தேடுபெட்டி,
+.புலங்கள் input,
+textarea {
+  width: 100%;
+  border: 1px solid rgba(31, 83, 69, 0.12);
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 14px;
+  padding: 13px 14px;
+  color: #16312a;
+}
+
+.பாத்திரமாற்றி {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 16px 0 24px;
+}
+
+.பாத்திரமாற்றி button,
+.செயற்பொத்தான்கள் button,
+.குரல்பொத்தான் {
+  border: 0;
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-weight: 600;
+}
+
+.பாத்திரமாற்றி button,
+.இரண்டாம் {
+  background: rgba(15, 118, 110, 0.08);
+  color: #0f5d57;
+}
+
+.பாத்திரமாற்றி .செயலில்,
+.முதல் {
+  background: linear-gradient(135deg, #0f766e, #15803d);
+  color: #f7fff9;
+}
+
+.குழு {
+  margin-bottom: 22px;
+}
+
+.குழுத்தலைப்பு {
+  font-size: 0.85rem;
+  text-transform: none;
+  font-weight: 700;
+  color: #37594f;
+  margin: 0 0 10px;
+}
+
+.இணைப்புகள் {
+  display: grid;
+  gap: 6px;
+}
+
+.இணைப்பு {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  color: #23463d;
+}
+
+.இணைப்பு.தற்போது {
+  background: rgba(15, 118, 110, 0.12);
+  color: #0d5f59;
+}
+
+.உள்ளடக்கப்பகுதி {
+  padding: 22px 24px 36px;
+}
+
+.மேல்பட்டி {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.பயனர்_சுருக்கம் {
+  padding: 10px 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.76);
+  border: 1px solid rgba(22, 49, 42, 0.08);
+}
+
+.பயனர்_சுருக்கம் strong,
+.தகவல்பட்டி strong,
+.எண்_அட்டை strong,
+.காலவரிசை strong,
+.செயல்_இணைப்பு strong {
+  display: block;
+  font-size: 1rem;
+}
+
+.பயனர்_சுருக்கம் span {
+  font-size: 0.92rem;
+}
+
+.பக்கஉள்ளடைவு {
+  display: grid;
+  gap: 22px;
+}
+
+.வீரம் {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 24px;
+  padding: 28px;
+  border-radius: 28px;
+  background:
+    linear-gradient(135deg, rgba(12, 74, 67, 0.94), rgba(16, 115, 92, 0.9)),
+    linear-gradient(135deg, rgba(217, 119, 6, 0.22), transparent 40%);
+  color: #f8fff7;
+  overflow: hidden;
+}
+
+.வீரம்_உரை {
+  display: grid;
+  gap: 16px;
+  align-content: center;
+}
+
+.வீரம்_உரை h3 {
+  font-size: clamp(2rem, 4vw, 3.35rem);
+  line-height: 1.1;
+}
+
+.வீரம்_விளக்கம்,
+.சிறுகுறிப்பு {
+  color: rgba(248, 255, 247, 0.84);
+}
+
+.அட்டைக்கூட்டம்,
+.இரண்டு_நெடுவரிசை,
+.மூன்று_நெடுவரிசை,
+.புலங்கள்,
+.தகவல்பட்டி,
+.செயற்பொத்தான்கள்,
+.இணைப்பு_கட்டம் {
+  display: grid;
+  gap: 16px;
+}
+
+.அட்டைக்கூட்டம் {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.இரண்டு_நெடுவரிசை {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.மூன்று_நெடுவரிசை {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.ஒற்றைநெடு {
+  grid-template-columns: 1fr;
+}
+
+.அட்டை {
+  padding: 22px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(22, 49, 42, 0.08);
+  box-shadow: 0 18px 40px rgba(18, 48, 42, 0.06);
+}
+
+.அட்டை_மேல் {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: start;
+  margin-bottom: 16px;
+}
+
+.எண்_அட்டை strong {
+  font-size: 2rem;
+  margin: 8px 0 6px;
+}
+
+.எண்_அட்டை p {
+  margin: 0;
+  color: #37594f;
+}
+
+.அட்டவணைமூடி {
+  overflow: auto;
+}
+
+.அட்டவணை {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+}
+
+.அட்டவணை th,
+.அட்டவணை td {
+  text-align: left;
+  padding: 14px 10px;
+  border-bottom: 1px solid rgba(22, 49, 42, 0.08);
+}
+
+.அட்டவணை tbody tr {
+  cursor: pointer;
+}
+
+.அட்டவணை tbody tr:hover {
+  background: rgba(15, 118, 110, 0.05);
+}
+
+.தகவல்பட்டி {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.தகவல்பட்டி div,
+.செயல்_இணைப்பு,
+.மென்மைஅட்டை,
+.காலவரிசை_உருப்படி,
+.குரல்பலகை {
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(244, 248, 245, 0.92);
+  border: 1px solid rgba(22, 49, 42, 0.08);
+}
+
+.தகவல்பட்டி span {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.புலங்கள் {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.புலங்கள் label,
+.அட்டை label {
+  display: grid;
+  gap: 8px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 160px;
+}
+
+.செயற்பொத்தான்கள் {
+  grid-auto-flow: column;
+  justify-content: start;
+}
+
+.குரல்பலகை {
+  display: grid;
+  gap: 12px;
+}
+
+.குரல்பொத்தான் {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 118, 110, 0.1);
+  color: #0f5d57;
+}
+
+.குரல்பொத்தான்.செயலில் {
+  background: linear-gradient(135deg, #b91c1c, #dc2626);
+  color: #fffaf8;
+}
+
+.வரைபடஉள்ளடைவு {
+  width: 100%;
+  height: 260px;
+}
+
+.காலவரிசை {
+  display: grid;
+  gap: 14px;
+}
+
+.காலவரிசை_உருப்படி {
+  display: grid;
+  grid-template-columns: 12px 1fr;
+  gap: 12px;
+}
+
+.காலவரிசை_புள்ளி {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  margin-top: 6px;
+  background: linear-gradient(135deg, #0f766e, #d97706);
+}
+
+.செயல்_இணைப்பு {
+  display: grid;
+  gap: 4px;
+}
+
+.வெற்றிப்பக்கம் {
+  max-width: 920px;
+}
+
+@media (max-width: 1180px) {
+  .அமைப்பு {
+    grid-template-columns: 1fr;
+  }
+
+  .பக்கப்பட்டி {
+    position: static;
+    height: auto;
+    border-right: 0;
+    border-bottom: 1px solid rgba(22, 49, 42, 0.08);
+  }
+}
+
+@media (max-width: 920px) {
+  .இரண்டு_நெடுவரிசை,
+  .மூன்று_நெடுவரிசை,
+  .புலங்கள்,
+  .தகவல்பட்டி,
+  .அட்டைக்கூட்டம்,
+  .வீரம் {
+    grid-template-columns: 1fr;
+  }
+
+  .மேல்பட்டி {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .செயற்பொத்தான்கள் {
+    grid-auto-flow: row;
+  }
+}
+
+
+.attachment-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.attachment-panel {
+  padding: 22px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(22, 49, 42, 0.08);
+  box-shadow: 0 18px 40px rgba(18, 48, 42, 0.06);
+}
+
+.attachment-head {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.attachment-head h3,
+.attachment-head p,
+.attachment-field span,
+.attachment-preview p,
+.attachment-tips div {
+  margin: 0;
+}
+
+.attachment-field {
+  display: grid;
+  gap: 8px;
+}
+
+.attachment-field input {
+  width: 100%;
+  border: 1px solid rgba(31, 83, 69, 0.12);
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 14px;
+  padding: 13px 14px;
+  color: #16312a;
+}
+
+.attachment-preview,
+.attachment-tips div {
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(244, 248, 245, 0.92);
+  border: 1px solid rgba(22, 49, 42, 0.08);
+}
+
+.attachment-tips {
+  display: grid;
+  gap: 12px;
+}
+
+.attachment-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.attachment-button {
+  border: 0;
+  border-radius: 14px;
+  padding: 12px 16px;
+  font-weight: 600;
+}
+
+.attachment-button-primary {
+  background: linear-gradient(135deg, #0f766e, #15803d);
+  color: #f7fff9;
+}
+
+.attachment-button-secondary {
+  background: rgba(15, 118, 110, 0.08);
+  color: #0f5d57;
+}
+
+@media (max-width: 920px) {
+  .attachment-grid {
+    grid-template-columns: 1fr;
+  }
+}
