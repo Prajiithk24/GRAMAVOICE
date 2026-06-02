@@ -20,6 +20,7 @@ public class Complaint {
     private Long id;
 
     private String referenceNumber;
+    private String ownerUsername;
     private String citizenName;
     private String mobileNumber;
     private String subjectTa;
@@ -76,6 +77,14 @@ public class Complaint {
 
     public void setReferenceNumber(String referenceNumber) {
         this.referenceNumber = referenceNumber;
+    }
+
+    public String getOwnerUsername() {
+        return ownerUsername;
+    }
+
+    public void setOwnerUsername(String ownerUsername) {
+        this.ownerUsername = ownerUsername;
     }
 
     public String getCitizenName() {

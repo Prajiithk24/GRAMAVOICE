@@ -15,6 +15,7 @@ import org.gramavoice.backend.repository.FaqItemRepository;
 import org.gramavoice.backend.repository.KnowledgeArticleRepository;
 import org.gramavoice.backend.repository.UserAccountRepository;
 import org.gramavoice.backend.service.ComplaintService;
+import org.gramavoice.backend.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,7 +33,8 @@ public class DataInitializer {
             AnnouncementRepository announcementRepository,
             FaqItemRepository faqItemRepository,
             KnowledgeArticleRepository knowledgeArticleRepository,
-            ComplaintService complaintService
+            ComplaintService complaintService,
+            UserService userService
     ) {
         return args -> {
             if (departmentRepository.count() == 0) {
@@ -119,6 +121,8 @@ public class DataInitializer {
                         "VOICE"
                 ));
             }
+
+            userService.initializeUsers();
         };
     }
 

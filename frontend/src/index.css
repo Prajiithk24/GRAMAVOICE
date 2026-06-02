@@ -2,11 +2,9 @@
 
 :root {
   font-family: 'Hind Madurai', 'Noto Sans Tamil', sans-serif;
-  color: #16312a;
+  color: #14342d;
   background:
-    radial-gradient(circle at top right, rgba(232, 161, 49, 0.22), transparent 30%),
-    radial-gradient(circle at top left, rgba(15, 118, 110, 0.14), transparent 34%),
-    linear-gradient(180deg, #f8f5ed 0%, #eef4ef 52%, #f9fbf7 100%);
+    linear-gradient(180deg, #f7fbf7 0%, #edf6f1 48%, #fffaf0 100%);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -49,8 +47,8 @@ a {
 }
 
 .பக்கப்பட்டி {
-  padding: 28px 20px 24px;
-  background: rgba(248, 252, 248, 0.88);
+  padding: 24px 18px;
+  background: rgba(249, 253, 249, 0.94);
   border-right: 1px solid rgba(22, 49, 42, 0.08);
   backdrop-filter: blur(14px);
   position: sticky;
@@ -69,13 +67,13 @@ a {
 .முத்திரை_சின்னம் {
   width: 52px;
   aspect-ratio: 1;
-  border-radius: 14px;
+  border-radius: 10px;
   display: grid;
   place-items: center;
   font-size: 1.5rem;
   font-weight: 700;
   color: #fefdf8;
-  background: linear-gradient(135deg, #0f766e, #d97706);
+  background: linear-gradient(135deg, #0f766e, #2563eb);
 }
 
 .முத்திரை h1,
@@ -104,7 +102,7 @@ textarea {
   width: 100%;
   border: 1px solid rgba(31, 83, 69, 0.12);
   background: rgba(255, 255, 255, 0.85);
-  border-radius: 14px;
+  border-radius: 10px;
   padding: 13px 14px;
   color: #16312a;
 }
@@ -120,7 +118,7 @@ textarea {
 .செயற்பொத்தான்கள் button,
 .குரல்பொத்தான் {
   border: 0;
-  border-radius: 14px;
+  border-radius: 10px;
   padding: 12px 14px;
   font-weight: 600;
 }
@@ -133,7 +131,7 @@ textarea {
 
 .பாத்திரமாற்றி .செயலில்,
 .முதல் {
-  background: linear-gradient(135deg, #0f766e, #15803d);
+  background: linear-gradient(135deg, #0f766e, #2563eb);
   color: #f7fff9;
 }
 
@@ -159,13 +157,14 @@ textarea {
   align-items: center;
   gap: 12px;
   padding: 10px 12px;
-  border-radius: 14px;
+  border-radius: 10px;
   color: #23463d;
 }
 
 .இணைப்பு.தற்போது {
   background: rgba(15, 118, 110, 0.12);
   color: #0d5f59;
+  box-shadow: inset 3px 0 0 #0f766e;
 }
 
 .உள்ளடக்கப்பகுதி {
@@ -185,6 +184,23 @@ textarea {
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.76);
   border: 1px solid rgba(22, 49, 42, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.வெளியேறு_பொத்தான் {
+  padding: 6px 12px;
+  background: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.வெளியேறு_பொத்தான்:hover {
+  background: #b91c1c;
 }
 
 .பயனர்_சுருக்கம் strong,
@@ -210,10 +226,10 @@ textarea {
   grid-template-columns: 1.25fr 1fr;
   gap: 24px;
   padding: 28px;
-  border-radius: 28px;
+  border-radius: 18px;
   background:
-    linear-gradient(135deg, rgba(12, 74, 67, 0.94), rgba(16, 115, 92, 0.9)),
-    linear-gradient(135deg, rgba(217, 119, 6, 0.22), transparent 40%);
+    linear-gradient(135deg, rgba(12, 74, 67, 0.96), rgba(37, 99, 235, 0.78)),
+    url('./assets/hero.png') center / cover;
   color: #f8fff7;
   overflow: hidden;
 }
@@ -225,7 +241,7 @@ textarea {
 }
 
 .வீரம்_உரை h3 {
-  font-size: clamp(2rem, 4vw, 3.35rem);
+  font-size: clamp(2rem, 4vw, 3.1rem);
   line-height: 1.1;
 }
 
@@ -263,8 +279,8 @@ textarea {
 
 .அட்டை {
   padding: 22px;
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.82);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(22, 49, 42, 0.08);
   box-shadow: 0 18px 40px rgba(18, 48, 42, 0.06);
 }
@@ -312,6 +328,13 @@ textarea {
   background: rgba(15, 118, 110, 0.05);
 }
 
+.அட்டவணை_காலி {
+  text-align: center !important;
+  color: #53756c;
+  padding: 24px 12px !important;
+  font-weight: 600;
+}
+
 .தகவல்பட்டி {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -322,7 +345,7 @@ textarea {
 .காலவரிசை_உருப்படி,
 .குரல்பலகை {
   padding: 14px 16px;
-  border-radius: 18px;
+  border-radius: 10px;
   background: rgba(244, 248, 245, 0.92);
   border: 1px solid rgba(22, 49, 42, 0.08);
 }
@@ -371,9 +394,142 @@ textarea {
   color: #fffaf8;
 }
 
+.குரல்_முதன்மை {
+  border: 1px solid rgba(15, 118, 110, 0.18);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(244, 251, 248, 0.92));
+}
+
+.குரல்_தலைப்பு {
+  align-items: center;
+}
+
+.ai_நிலை,
+.ai_பொத்தான்,
+.தயார்_பட்டி span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ai_நிலை {
+  flex: 0 0 auto;
+  padding: 10px 12px;
+  border-radius: 999px;
+  background: rgba(37, 99, 235, 0.1);
+  color: #1d4ed8;
+  font-weight: 700;
+}
+
+.பெரிய_குரல்பலகை {
+  background:
+    linear-gradient(135deg, rgba(15, 118, 110, 0.12), rgba(37, 99, 235, 0.1));
+}
+
+.பெரிய_குரல்பொத்தான் {
+  width: 100%;
+  min-height: 74px;
+  font-size: 1.15rem;
+  background: linear-gradient(135deg, #0f766e, #2563eb);
+  color: #fff;
+}
+
+.ai_பலகை {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: center;
+  padding: 14px;
+  border-radius: 12px;
+  background: #f7fbff;
+  border: 1px solid rgba(37, 99, 235, 0.14);
+}
+
+.ai_பொத்தான் {
+  border: 0;
+  border-radius: 10px;
+  padding: 12px 14px;
+  background: #1d4ed8;
+  color: #fff;
+  font-weight: 700;
+}
+
+.ai_பொத்தான்:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ai_சுருக்கம் {
+  display: grid;
+  gap: 2px;
+}
+
+.ai_சுருக்கம் span,
+.ai_பலகை p {
+  margin: 0;
+  color: #53756c;
+}
+
+.mic-error {
+  margin: 0;
+  color: #b42318;
+  font-weight: 700;
+}
+
+.analysis-status,
+.analysis-source {
+  margin: 0 0 12px;
+  color: #53756c;
+  font-weight: 600;
+}
+
+.தயார்_பட்டி {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.தயார்_பட்டி span {
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: rgba(83, 117, 108, 0.1);
+  color: #53756c;
+  font-size: 0.9rem;
+}
+
+.தயார்_பட்டி .முடிந்தது {
+  background: rgba(15, 118, 110, 0.12);
+  color: #0f766e;
+  font-weight: 700;
+}
+
 .வரைபடஉள்ளடைவு {
   width: 100%;
   height: 260px;
+}
+
+.காலி_பலகை {
+  min-height: 120px;
+  border: 1px dashed rgba(22, 49, 42, 0.22);
+  background: rgba(244, 248, 245, 0.7);
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 14px;
+  color: #53756c;
+  font-weight: 600;
+}
+
+.காலி_அட்டை {
+  display: grid;
+  align-content: center;
+  gap: 8px;
+}
+
+.காலி_அட்டை h3,
+.காலி_அட்டை p {
+  margin: 0;
 }
 
 .காலவரிசை {
@@ -435,6 +591,14 @@ textarea {
   .செயற்பொத்தான்கள் {
     grid-auto-flow: row;
   }
+
+  .குரல்_தலைப்பு {
+    display: grid;
+  }
+
+  .ai_பலகை {
+    grid-template-columns: 1fr;
+  }
 }
 
 
@@ -446,7 +610,7 @@ textarea {
 
 .attachment-panel {
   padding: 22px;
-  border-radius: 24px;
+  border-radius: 12px;
   background: rgba(255, 255, 255, 0.82);
   border: 1px solid rgba(22, 49, 42, 0.08);
   box-shadow: 0 18px 40px rgba(18, 48, 42, 0.06);
@@ -520,5 +684,343 @@ textarea {
 @media (max-width: 920px) {
   .attachment-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+.login-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: clamp(24px, 5vw, 56px);
+  font-family: 'Noto Sans Tamil', 'Hind Madurai', sans-serif;
+  background:
+    linear-gradient(135deg, rgba(13, 95, 89, 0.92), rgba(20, 83, 45, 0.86)),
+    url('./assets/hero.png') center / cover;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.24), transparent 30%),
+    linear-gradient(180deg, rgba(248, 255, 247, 0.12), rgba(5, 46, 42, 0.38));
+}
+
+.login-panel {
+  width: min(100%, 480px);
+  display: grid;
+  gap: 24px;
+  padding: clamp(24px, 4vw, 36px);
+  border: 1px solid rgba(255, 255, 255, 0.54);
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 28px 80px rgba(7, 38, 34, 0.28);
+  backdrop-filter: blur(18px);
+  position: relative;
+  z-index: 1;
+}
+
+.login-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.login-emblem {
+  width: 58px;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 18px;
+  color: #fffaf0;
+  background: linear-gradient(135deg, #0f766e, #d97706);
+  box-shadow: 0 14px 28px rgba(15, 118, 110, 0.24);
+  font-size: 1.45rem;
+  font-weight: 700;
+}
+
+.login-brand p,
+.login-brand h2,
+.login-intro strong,
+.login-intro span,
+.login-footer-note {
+  margin: 0;
+}
+
+.login-brand p {
+  color: #d97706;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.login-brand h2 {
+  color: #15342e;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+
+.login-intro {
+  display: grid;
+  gap: 6px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: rgba(15, 118, 110, 0.08);
+  border: 1px solid rgba(15, 118, 110, 0.12);
+}
+
+.login-intro strong {
+  color: #193d35;
+  font-size: 1.02rem;
+}
+
+.login-intro span {
+  color: #55756d;
+  font-size: 0.94rem;
+}
+
+.login-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 5px;
+  border-radius: 14px;
+  background: rgba(15, 118, 110, 0.08);
+}
+
+.login-tabs button,
+.login-submit {
+  border: 0;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.login-tabs button {
+  min-height: 42px;
+  border-radius: 10px;
+  color: #31564f;
+  background: transparent;
+}
+
+.login-tabs button.active {
+  color: #fffdf8;
+  background: #0f766e;
+  box-shadow: 0 10px 18px rgba(15, 118, 110, 0.18);
+}
+
+.login-form {
+  display: grid;
+  gap: 12px;
+}
+
+.login-form label {
+  display: grid;
+  gap: 6px;
+}
+
+.login-form span {
+  color: #31564f;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.login-form input {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid rgba(15, 118, 110, 0.18);
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: #15342e;
+  background: rgba(255, 255, 255, 0.86);
+}
+
+.login-submit {
+  min-height: 48px;
+  border-radius: 10px;
+  color: #fffdf8;
+  background: #0f766e;
+  box-shadow: 0 14px 24px rgba(15, 118, 110, 0.22);
+}
+
+.login-submit:disabled {
+  cursor: wait;
+  opacity: 0.68;
+}
+
+.login-error {
+  margin: 0;
+  color: #b42318;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.login-actions {
+  display: grid;
+  gap: 14px;
+}
+
+.login-button {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 46px 1fr;
+  align-items: center;
+  gap: 14px;
+  min-height: 76px;
+  padding: 14px 16px;
+  border: 0;
+  border-radius: 18px;
+  color: #fffdf8;
+  text-align: left;
+  box-shadow: 0 16px 34px rgba(21, 52, 46, 0.18);
+  transition: transform 160ms ease, box-shadow 160ms ease, filter 160ms ease;
+}
+
+.login-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 44px rgba(21, 52, 46, 0.24);
+  filter: saturate(1.06);
+}
+
+.login-button:focus-visible {
+  outline: 3px solid rgba(217, 119, 6, 0.34);
+  outline-offset: 3px;
+}
+
+.login-button-citizen {
+  background: linear-gradient(135deg, #0f766e, #15803d);
+}
+
+.login-button-admin {
+  background: linear-gradient(135deg, #334155, #0f172a);
+}
+
+.login-button-icon {
+  width: 46px;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.17);
+  font-weight: 700;
+}
+
+.login-button strong,
+.login-button small {
+  display: block;
+}
+
+.login-button strong {
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+
+.login-button small {
+  margin-top: 3px;
+  color: rgba(255, 253, 248, 0.78);
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.login-footer-note {
+  justify-self: center;
+  color: #5f7d75;
+  font-size: 0.88rem;
+}
+
+.login-intro-text {
+  margin: 0;
+  text-align: center;
+  color: #31564f;
+  font-weight: 600;
+}
+
+.login-audience-grid,
+.login-dept-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.login-dept-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.login-audience-card,
+.login-dept-card {
+  border: 1px solid rgba(15, 118, 110, 0.2);
+  border-radius: 14px;
+  padding: 16px;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+}
+
+.login-audience-card strong,
+.login-dept-card strong {
+  display: block;
+  color: #15342e;
+  margin-bottom: 4px;
+}
+
+.login-audience-card span,
+.login-dept-card span {
+  color: #53756c;
+  font-size: 0.88rem;
+}
+
+.login-audience-citizen {
+  background: linear-gradient(135deg, rgba(15, 118, 110, 0.1), rgba(21, 128, 61, 0.08));
+}
+
+.login-audience-admin {
+  background: linear-gradient(135deg, rgba(51, 65, 85, 0.08), rgba(15, 118, 110, 0.08));
+}
+
+.login-dept-card:hover,
+.login-audience-card:hover {
+  border-color: #0f766e;
+  box-shadow: 0 8px 20px rgba(15, 118, 110, 0.12);
+}
+
+.login-back {
+  border: 0;
+  background: transparent;
+  color: #0f766e;
+  font-weight: 700;
+  cursor: pointer;
+  justify-self: start;
+}
+
+.login-hint {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(15, 118, 110, 0.08);
+  color: #31564f;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 520px) {
+  .login-page {
+    padding: 18px;
+    place-items: stretch;
+  }
+
+  .login-panel {
+    align-self: center;
+    border-radius: 22px;
+  }
+
+  .login-brand {
+    align-items: flex-start;
+  }
+
+  .login-button {
+    min-height: 82px;
+    padding: 14px;
   }
 }

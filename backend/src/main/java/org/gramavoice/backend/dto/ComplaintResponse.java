@@ -6,6 +6,7 @@ import java.util.List;
 public record ComplaintResponse(
         Long id,
         String referenceNumber,
+        String ownerUsername,
         String citizenName,
         String mobileNumber,
         String subjectTa,

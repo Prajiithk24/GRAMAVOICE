@@ -27,7 +27,7 @@ export default function ComplaintTable({ complaints, onSelect }) {
             </tr>
           </thead>
           <tbody>
-            {complaints.map((complaint) => (
+            {complaints.length > 0 ? complaints.map((complaint) => (
               <tr
                 key={complaint.id}
                 onClick={() => {
@@ -42,7 +42,13 @@ export default function ComplaintTable({ complaints, onSelect }) {
                 <td>{முன்னுரிமைப்பெயர்(complaint.priority)}</td>
                 <td>{நாள்(complaint.createdAt)}</td>
               </tr>
-            ))}
+            )) : (
+              <tr>
+                <td colSpan={6} className="அட்டவணை_காலி">
+                  இன்னும் குறைகள் பதிவு செய்யப்படவில்லை. புதிய குறை பதிவு செய்ததும் இங்கு தெரியும்.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

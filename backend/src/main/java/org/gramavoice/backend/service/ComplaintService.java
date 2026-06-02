@@ -10,6 +10,8 @@ import org.gramavoice.backend.model.Complaint;
 import org.gramavoice.backend.model.ComplaintHistory;
 import org.gramavoice.backend.model.ComplaintStatus;
 import org.gramavoice.backend.model.PriorityLevel;
+import org.gramavoice.backend.model.User;
+import org.gramavoice.backend.model.UserRole;
 import org.gramavoice.backend.repository.AppNotificationRepository;
 import org.gramavoice.backend.repository.CategoryRuleRepository;
 import org.gramavoice.backend.repository.ComplaintHistoryRepository;
@@ -63,6 +65,36 @@ public class ComplaintService {
         return complaints.stream().map(this::toResponse).toList();
     }
 
+    public List<ComplaintResponse> listForUser(User user, String status) {
+        if (user.getRole() == UserRole.ADMIN) {
+            return listAll(null, status);
+        }
+        if (user.getRole() == UserRole.OFFICER) {
+            String departmentCode = user.getDepartmentCode();
+            List<Complaint> complaints = complaintRepository.findAll()
+                    .stream()
+                    .filter(complaint -> departmentCode == null
+                            || departmentCode.isBlank()
+                            || departmentCode.equals(complaint.getDepartmentCode()))
+                    .sorted(Comparator.comparing(Complaint::getCreatedAt).reversed())
+                    .toList();
+            if (status != null && !status.isBlank()) {
+                ComplaintStatus wantedStatus = ComplaintStatus.valueOf(status);
+                complaints = complaints.stream().filter(complaint -> complaint.getStatus() == wantedStatus).toList();
+            }
+            return complaints.stream().map(this::toResponse).toList();
+        }
+        List<Complaint> complaints = complaintRepository.findByOwnerUsernameOrderByCreatedAtDesc(user.getUsername());
+        if (complaints.isEmpty() && user.getMobileNumber() != null && !user.getMobileNumber().isBlank()) {
+            complaints = complaintRepository.findByMobileNumberOrderByCreatedAtDesc(user.getMobileNumber());
+        }
+        if (status != null && !status.isBlank()) {
+            ComplaintStatus wantedStatus = ComplaintStatus.valueOf(status);
+            complaints = complaints.stream().filter(complaint -> complaint.getStatus() == wantedStatus).toList();
+        }
+        return complaints.stream().map(this::toResponse).toList();
+    }
+
     public ComplaintResponse createComplaint(ComplaintCreateRequest request) {
         List<CategoryRule> rules = categoryRuleRepository.findAll();
         String inputText = request.transcript() != null && !request.transcript().isBlank()
@@ -105,8 +137,36 @@ public class ComplaintService {
         return toResponse(saved);
     }
 
+    public ComplaintResponse createComplaint(ComplaintCreateRequest request, User user) {
+        ComplaintCreateRequest ownedRequest = request;
+        if (user.getRole() == UserRole.CITIZEN) {
+            ownedRequest = new ComplaintCreateRequest(
+                    blankFallback(user.getFullName(), user.getUsername()),
+                    blankFallback(user.getMobileNumber(), request.mobileNumber()),
+                    request.subject(),
+                    request.description(),
+                    request.transcript(),
+                    blankFallback(request.village(), user.getVillage()),
+                    blankFallback(request.district(), user.getDistrict()),
+                    request.locationArea(),
+                    request.evidenceUrl(),
+                    request.sourceMode()
+            );
+        }
+        ComplaintResponse created = createComplaint(ownedRequest);
+        Complaint saved = findComplaint(created.id());
+        saved.setOwnerUsername(user.getUsername());
+        return toResponse(complaintRepository.save(saved));
+    }
+
     public ComplaintResponse getComplaint(Long id) {
         return toResponse(findComplaint(id));
+    }
+
+    public ComplaintResponse getComplaint(Long id, User user) {
+        Complaint complaint = findComplaint(id);
+        requireAccess(complaint, user);
+        return toResponse(complaint);
     }
 
     public ComplaintResponse updateComplaint(Long id, ComplaintUpdateRequest request) {
@@ -141,6 +201,13 @@ public class ComplaintService {
         return toResponse(saved);
     }
 
+    public ComplaintResponse updateComplaint(Long id, ComplaintUpdateRequest request, User user) {
+        if (user.getRole() != UserRole.ADMIN && user.getRole() != UserRole.OFFICER) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Only administration can update complaint status");
+        }
+        return updateComplaint(id, request);
+    }
+
     public List<AppNotification> getNotifications(String mobileNumber) {
         return notificationRepository.findByMobileNumberOrderByCreatedAtDesc(mobileNumber);
     }
@@ -160,6 +227,23 @@ public class ComplaintService {
                 .toList();
     }
 
+    public List<TimelineItemResponse> getTimeline(Long complaintId, User user) {
+        Complaint complaint = findComplaint(complaintId);
+        requireAccess(complaint, user);
+        return getTimeline(complaintId);
+    }
+
+    private void requireAccess(Complaint complaint, User user) {
+        if (user.getRole() == UserRole.ADMIN || user.getRole() == UserRole.OFFICER) {
+            return;
+        }
+        boolean ownsByUsername = user.getUsername().equals(complaint.getOwnerUsername());
+        boolean ownsByMobile = user.getMobileNumber() != null && user.getMobileNumber().equals(complaint.getMobileNumber());
+        if (!ownsByUsername && !ownsByMobile) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Complaint belongs to another user");
+        }
+    }
+
     private Complaint findComplaint(Long id) {
         return complaintRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "குறை கிடைக்கவில்லை"));
@@ -169,6 +253,7 @@ public class ComplaintService {
         return new ComplaintResponse(
                 complaint.getId(),
                 complaint.getReferenceNumber(),
+                complaint.getOwnerUsername(),
                 complaint.getCitizenName(),
                 complaint.getMobileNumber(),
                 complaint.getSubjectTa(),

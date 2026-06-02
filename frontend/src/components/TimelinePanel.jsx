@@ -12,7 +12,7 @@ export default function TimelinePanel({ timeline = [] }) {
         <p>பதிவு முதல் தற்போது வரை</p>
       </div>
       <div className="காலவரிசை">
-        {timeline.map((item) => (
+        {timeline.length > 0 ? timeline.map((item) => (
           <div key={item.id} className="காலவரிசை_உருப்படி">
             <div className="காலவரிசை_புள்ளி" />
             <div>
@@ -21,7 +21,9 @@ export default function TimelinePanel({ timeline = [] }) {
               <span>{item.actorNameTa} · {நிலைப்பெயர்(item.status)} · {நாள்(item.createdAt)}</span>
             </div>
           </div>
-        ))}
+        )) : (
+          <div className="காலி_பலகை">இன்னும் காலவரிசை புதுப்பிப்புகள் இல்லை.</div>
+        )}
       </div>
     </section>
   );

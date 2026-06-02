@@ -3,7 +3,7 @@ import ChartPanel from '../components/ChartPanel';
 import ComplaintComposer from '../components/ComplaintComposer';
 import ComplaintTable from '../components/ComplaintTable';
 import TimelinePanel from '../components/TimelinePanel';
-import { துறைகள், டாஷ்போர்டு_உருவாக்கு, நிலைப்பெயர், முன்னுரிமைப்பெயர், உரையை_ஆய்வு_செய் } from '../lib/mockData';
+import { துறைகள், டாஷ்போர்டு_உருவாக்கு, நிலைப்பெயர், முன்னுரிமைப்பெயர் } from '../lib/mockData';
 
 function அட்டைவரிசை(cards) {
   return (
@@ -47,7 +47,10 @@ function நாள்(மதிப்பு) {
 export default function PageRenderer({ page, state, actions, pages }) {
   const navigate = useNavigate();
   const selectedComplaint = state.complaints.find((item) => item.id === state.selectedComplaintId) || state.complaints[0];
-  const draftAnalysis = உரையை_ஆய்வு_செய்(state.draft.description || state.draft.transcript || '');
+  const hasVoiceDraft = Boolean((state.draft.transcript || '').trim());
+  const hasAnyDraft = Boolean((state.draft.description || state.draft.transcript || '').trim());
+  const shouldShowDraftAnalysis = page.kind === 'voiceComplaint' ? hasVoiceDraft : hasAnyDraft;
+  const draftAnalysis = shouldShowDraftAnalysis ? state.draftAnalysis : null;
   const homeDashboard = state.homeDashboard || டாஷ்போர்டு_உருவாக்கு('முகப்பு', 'தமிழ் குறைதீர் தளம்', state.complaints);
   const citizenDashboard = state.citizenDashboard || homeDashboard;
   const adminDashboard = state.adminDashboard || homeDashboard;
@@ -81,7 +84,7 @@ export default function PageRenderer({ page, state, actions, pages }) {
         <ComplaintTable complaints={homeDashboard.recentComplaints} onSelect={actions.setSelectedComplaintId} />
 
         <div className="மூன்று_நெடுவரிசை">
-          {state.announcements.slice(0, 3).map((item) => (
+          {state.announcements.length > 0 ? state.announcements.slice(0, 3).map((item) => (
             <article key={item.id} className="அட்டை">
               <div className="அட்டை_மேல்">
                 <h3>{item.titleTa}</h3>
@@ -89,7 +92,12 @@ export default function PageRenderer({ page, state, actions, pages }) {
               </div>
               <p>{item.contentTa}</p>
             </article>
-          ))}
+          )) : (
+            <article className="அட்டை காலி_அட்டை">
+              <h3>அறிவிப்புகள் இல்லை</h3>
+              <p>புதிய சேவை அறிவிப்புகள் வந்தவுடன் இங்கு தெரியும்.</p>
+            </article>
+          )}
         </div>
       </>
     );
@@ -158,10 +166,10 @@ export default function PageRenderer({ page, state, actions, pages }) {
           })}
           {சுருக்கஅட்டை({
             title: 'சேவை பிரிவுகள்',
-            description: 'அதிகம் பயன்படுத்தப்படும் குறைத் தலைப்புகளுக்கு நேரடி அணுகல்.',
-            links: pages
-              .filter((item) => ['குடிநீர்', 'மின்சாரம்', 'சாலை'].includes(item.title))
-              .map((item) => ({ to: item.path, title: item.title, note: item.summary })),
+            description: 'தனித்தனி திரைகள் இல்லாமல், குரல் பதிவு பகுதியிலேயே வகை தானாக கண்டறியப்படும்.',
+            links: state.categories
+              .slice(0, 3)
+              .map((item) => ({ to: '/குரல்-குறை-பதிவு', title: item.nameTa, note: `${item.departmentNameTa} துறைக்கு AI ஒதுக்கும்` })),
           })}
         </div>
         <ComplaintTable complaints={state.complaints.filter((item) => item.mobileNumber === state.profile.கைபேசி)} onSelect={actions.setSelectedComplaintId} />
@@ -189,6 +197,8 @@ export default function PageRenderer({ page, state, actions, pages }) {
           mode={page.kind === 'voiceComplaint' ? 'voice' : 'text'}
           profile={state.profile}
           draft={state.draft}
+          analysis={draftAnalysis}
+          analysisLoading={state.analysisLoading}
           onDraftChange={actions.updateDraft}
           onPreview={() => navigate('/குறை-ஆய்வு')}
           onSubmit={actions.submitComplaint}
@@ -196,14 +206,18 @@ export default function PageRenderer({ page, state, actions, pages }) {
         <section className="அட்டை">
           <div className="அட்டை_மேல்">
             <h3>தானியங்கி ஆய்வு</h3>
-            <p>உங்கள் உரையில் இருந்து முறைமை கண்டறியும் முன்னோட்டம்</p>
+            <p>உங்கள் உரையில் இருந்து Sarvam + விதிமுறைகள் மூலம் கண்டறியப்படும் முன்னோட்டம்</p>
           </div>
+          {state.analysisLoading && <p className="analysis-status">ஆய்வு நடைபெறுகிறது...</p>}
           <div className="தகவல்பட்டி">
-            <div><span>கண்டறியப்பட்ட வகை</span><strong>{draftAnalysis.categoryLabelTa}</strong></div>
-            <div><span>ஒதுக்கப்படும் துறை</span><strong>{draftAnalysis.departmentLabelTa}</strong></div>
-            <div><span>முன்னுரிமை</span><strong>{முன்னுரிமைப்பெயர்(draftAnalysis.priority)}</strong></div>
-            <div><span>நம்பகத்தன்மை</span><strong>{Math.round(draftAnalysis.confidenceScore * 100)}%</strong></div>
+            <div><span>கண்டறியப்பட்ட வகை</span><strong>{draftAnalysis ? draftAnalysis.categoryLabelTa : 'பேசிய/எழுதிய பின் காட்டப்படும்'}</strong></div>
+            <div><span>ஒதுக்கப்படும் துறை</span><strong>{draftAnalysis ? draftAnalysis.departmentLabelTa : 'பேசிய/எழுதிய பின் காட்டப்படும்'}</strong></div>
+            <div><span>முன்னுரிமை (தீவிரம்)</span><strong>{draftAnalysis ? முன்னுரிமைப்பெயர்(draftAnalysis.priority) : '-'}</strong></div>
+            <div><span>நம்பகத்தன்மை</span><strong>{draftAnalysis ? `${Math.round(draftAnalysis.confidenceScore * 100)}%` : '-'}</strong></div>
           </div>
+          {draftAnalysis?.analysisSource && (
+            <p className="analysis-source">மூலம்: {draftAnalysis.analysisSource}</p>
+          )}
         </section>
       </div>
     );
@@ -264,8 +278,8 @@ export default function PageRenderer({ page, state, actions, pages }) {
             <div><span>பெயர்</span><strong>{state.draft.citizenName || state.profile.பெயர்}</strong></div>
             <div><span>கைபேசி</span><strong>{state.draft.mobileNumber || state.profile.கைபேசி}</strong></div>
             <div><span>தலைப்பு</span><strong>{state.draft.subject || 'புதிய குறை பதிவு'}</strong></div>
-            <div><span>வகை</span><strong>{draftAnalysis.categoryLabelTa}</strong></div>
-            <div><span>துறை</span><strong>{draftAnalysis.departmentLabelTa}</strong></div>
+            <div><span>வகை</span><strong>{draftAnalysis ? draftAnalysis.categoryLabelTa : 'இன்னும் வகைப்படுத்தப்படவில்லை'}</strong></div>
+            <div><span>துறை</span><strong>{draftAnalysis ? draftAnalysis.departmentLabelTa : 'இன்னும் ஒதுக்கப்படவில்லை'}</strong></div>
             <div><span>இடம்</span><strong>{state.draft.locationArea || 'குறிப்பிடப்படவில்லை'}</strong></div>
           </div>
           <article className="மென்மைஅட்டை">
@@ -279,7 +293,7 @@ export default function PageRenderer({ page, state, actions, pages }) {
         <TimelinePanel
           timeline={[
             { id: 1, titleTa: 'குரல் அல்லது உரை பெறப்பட்டது', noteTa: 'உங்கள் உள்ளீடு பதிவு செய்யப்பட்டுள்ளது', actorNameTa: 'முறைமை', status: 'REGISTERED', createdAt: new Date().toISOString() },
-            { id: 2, titleTa: 'வகை கண்டறிதல்', noteTa: `${draftAnalysis.categoryLabelTa} என முறைமை கண்டறிந்துள்ளது`, actorNameTa: 'முறைமை', status: 'ROUTED', createdAt: new Date().toISOString() },
+            { id: 2, titleTa: 'வகை கண்டறிதல்', noteTa: `${draftAnalysis ? draftAnalysis.categoryLabelTa : 'பொது குறை'} என முறைமை கண்டறிந்துள்ளது`, actorNameTa: 'முறைமை', status: 'ROUTED', createdAt: new Date().toISOString() },
           ]}
         />
       </div>
@@ -333,7 +347,7 @@ export default function PageRenderer({ page, state, actions, pages }) {
           <article className="மென்மைஅட்டை">
             <p>{selectedComplaint.descriptionTa}</p>
           </article>
-          {page.audience === 'நிர்வாகம்' && (
+          {state.isAdmin && (
             <div className="செயற்பொத்தான்கள்">
               <button type="button" className="இரண்டாம்" onClick={() => actions.updateStatus(selectedComplaint.id, 'IN_PROGRESS', 'குழு பணியில் ஈடுபடுத்தப்பட்டது')}>செயலில் மாற்று</button>
               <button type="button" className="முதல்" onClick={() => actions.updateStatus(selectedComplaint.id, 'RESOLVED', 'சேவை நிறைவு செய்யப்பட்டது')}>தீர்வு பதிவு செய்</button>
@@ -376,7 +390,7 @@ export default function PageRenderer({ page, state, actions, pages }) {
   if (page.kind === 'notifications') {
     return (
       <div className="மூன்று_நெடுவரிசை">
-        {state.notifications.map((item) => (
+        {state.notifications.length > 0 ? state.notifications.map((item) => (
           <article key={item.id} className="அட்டை">
             <div className="அட்டை_மேல்">
               <h3>{item.titleTa}</h3>
@@ -385,7 +399,12 @@ export default function PageRenderer({ page, state, actions, pages }) {
             <p>{item.messageTa}</p>
             <span>{நாள்(item.createdAt)}</span>
           </article>
-        ))}
+        )) : (
+          <article className="அட்டை காலி_அட்டை">
+            <h3>அறிவிப்புகள் இல்லை</h3>
+            <p>நீங்கள் குறை பதிவு செய்த பிறகு நிலை மாற்ற தகவல்கள் இங்கே வரும்.</p>
+          </article>
+        )}
       </div>
     );
   }
