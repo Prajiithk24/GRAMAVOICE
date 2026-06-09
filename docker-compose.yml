@@ -23,7 +23,7 @@ services:
       GRAMAVOICE_DB_URL: jdbc:mysql://mysql:3306/gramavoice?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Kolkata
       GRAMAVOICE_DB_USERNAME: root
       GRAMAVOICE_DB_PASSWORD: root
-      SERVER_PORT: 8080
+      SERVER_PORT: 8085
       SARVAM_API_KEY: ${SARVAM_API_KEY:-}
       SARVAM_MODEL: ${SARVAM_MODEL:-sarvam-30b}
       SARVAM_ENABLED: ${SARVAM_ENABLED:-true}
@@ -32,7 +32,7 @@ services:
       mysql:
         condition: service_healthy
     ports:
-      - "8080:8080"
+      - "8085:8085"
 
   frontend:
     build:
@@ -43,7 +43,7 @@ services:
     depends_on:
       - backend
     ports:
-      - "5173:5173"
+      - "5180:5180"
 
 volumes:
   grama_mysql_data:

@@ -7,3 +7,5 @@ backend/backend-run.err.log
 .backend.pid
 .frontend.pid
 .env.local
+data/
+backend/data/
