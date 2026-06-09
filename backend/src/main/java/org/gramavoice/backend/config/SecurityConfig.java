@@ -50,7 +50,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @org.springframework.beans.factory.annotation.Value("${FRONTEND_URL:*}")
+    @org.springframework.beans.factory.annotation.Value("${FRONTEND_ORIGIN:*}")
     private String frontendUrl;
 
     @Bean
