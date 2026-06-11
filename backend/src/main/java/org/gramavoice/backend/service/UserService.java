@@ -34,10 +34,14 @@ public class UserService {
 
     public User save(User user) {
         if (userRepository.existsByUsername(user.getUsername())) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "இந்த பயனர் பெயர் ஏற்கனவே பதிவு செய்யப்பட்டுள்ளது.");
         }
         if (user.getMobileNumber() != null && !user.getMobileNumber().isBlank() && userRepository.existsByMobileNumber(user.getMobileNumber())) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Mobile number already exists");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "இந்த கைபேசி எண் ஏற்கனவே பதிவு செய்யப்பட்டுள்ளது.");
+        }
+        String pwd = user.getPassword();
+        if (pwd == null || pwd.length() < 8 || !pwd.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?].*")) {
+             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "கடவுச்சொல் குறைந்தது 8 எழுத்துக்கள் மற்றும் ஒரு சிறப்பு குறியீட்டை கொண்டிருக்க வேண்டும்.");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);

@@ -83,7 +83,11 @@ function Login() {
       saveSession(response);
       navigate(isAdminRole(response.user.role) ? '/நிர்வாக-முகப்பு' : '/');
     } catch (error) {
-      setStatus(error.response?.data?.message || 'உள்நுழைவு விவரங்களை சரிபார்க்கவும்.');
+      if (mode === 'register' && error.response?.status === 409) {
+        setStatus('இந்த பயனர் பெயர் அல்லது கைபேசி ஏற்கனவே பதிவு செய்யப்பட்டுள்ளது.');
+      } else {
+        setStatus(error.response?.data?.message || 'உள்நுழைவு விவரங்களை சரிபார்க்கவும்.');
+      }
     } finally {
       setBusy(false);
     }
@@ -189,7 +193,11 @@ function Login() {
           </label>
           <label>
             <span>கடவுச்சொல்</span>
-            <input type="password" value={form.password} onChange={(event) => update({ password: event.target.value })} required />
+            {audience === 'citizen' && mode === 'register' ? (
+              <input type="password" value={form.password} onChange={(event) => update({ password: event.target.value })} pattern="(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':&quot;\\\\|,.<>\\/?]).{8,}" title="கடவுச்சொல் குறைந்தது 8 எழுத்துக்கள் மற்றும் ஒரு சிறப்பு குறியீட்டை கொண்டிருக்க வேண்டும்." required />
+            ) : (
+              <input type="password" value={form.password} onChange={(event) => update({ password: event.target.value })} required />
+            )}
           </label>
 
           {audience === 'citizen' && mode === 'register' && (
@@ -213,7 +221,16 @@ function Login() {
             </>
           )}
 
-          {status && <p className="login-error">{status}</p>}
+          {status && (
+            <div className="login-error">
+              <p>{status}</p>
+              {mode === 'register' && status.includes('ஏற்கனவே பதிவு செய்யப்பட்டுள்ளது') && (
+                <button type="button" className="attachment-button attachment-button-primary" style={{ marginTop: '10px' }} onClick={() => { setMode('login'); setStatus(''); }}>
+                  உள்நுழையவும் (Login)
+                </button>
+              )}
+            </div>
+          )}
 
           <button type="submit" className="login-submit" disabled={busy}>
             {busy ? 'சரிபார்க்கிறது...' : 'உள்நுழை'}

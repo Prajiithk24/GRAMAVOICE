@@ -154,8 +154,8 @@ function AppLayout({ currentPage }) {
         ]);
         if (!active) return;
         setComplaints(complaintList);
-        setFaqs(faqList);
-        setArticles(articleList);
+        setFaqs(faqList && faqList.length > 0 && /^\\d+$/.test(String(faqList[0].questionTa || '')) ? கேள்விகள் : faqList);
+        setArticles(articleList && articleList.length > 0 && /^\\d+$/.test(String(articleList[0].titleTa || '')) ? கட்டுரைகள் : articleList);
         setAnnouncements(announcementList);
         setCategories(categoryList);
         setDepartments(departmentList);
