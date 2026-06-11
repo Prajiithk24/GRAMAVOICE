@@ -5,8 +5,8 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 
@@ -27,7 +27,7 @@ public class ComplaintHistory {
 
     private String titleTa;
 
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String noteTa;
 
     private String actorNameTa;

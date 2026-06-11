@@ -1,8 +1,8 @@
 package org.gramavoice.backend.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Column;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 
 @Entity
 public class CategoryRule {
@@ -14,7 +14,7 @@ public class CategoryRule {
     private String departmentCode;
     private String departmentNameTa;
 
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String keywordsTa;
 
     private String priorityCode;

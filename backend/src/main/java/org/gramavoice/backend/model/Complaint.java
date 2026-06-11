@@ -5,8 +5,8 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 
@@ -25,10 +25,10 @@ public class Complaint {
     private String mobileNumber;
     private String subjectTa;
 
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String descriptionTa;
 
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String transcriptTa;
 
     private String locationArea;
@@ -50,7 +50,7 @@ public class Complaint {
 
     private Double confidenceScore;
 
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String resolutionNoteTa;
 
     private LocalDateTime createdAt;

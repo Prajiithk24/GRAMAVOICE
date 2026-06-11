@@ -3,8 +3,8 @@ package org.gramavoice.backend.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 
 @Entity
 public class FaqItem {
@@ -13,10 +13,10 @@ public class FaqItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String questionTa;
 
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String answerTa;
 
     private Integer displayOrder;

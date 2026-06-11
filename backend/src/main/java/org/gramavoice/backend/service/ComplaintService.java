@@ -18,12 +18,14 @@ import org.gramavoice.backend.repository.ComplaintHistoryRepository;
 import org.gramavoice.backend.repository.ComplaintRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Comparator;
 import java.util.List;
 
 @Service
+@Transactional
 public class ComplaintService {
 
     private final ComplaintRepository complaintRepository;

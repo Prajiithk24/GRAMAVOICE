@@ -3,8 +3,8 @@ package org.gramavoice.backend.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import jakarta.persistence.PrePersist;
 
 import java.time.LocalDateTime;
@@ -18,7 +18,7 @@ public class Announcement {
 
     private String titleTa;
 
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String contentTa;
 
     private String areaNameTa;
